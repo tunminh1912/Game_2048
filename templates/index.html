@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi 2048</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu-screen">
+        <h1 class="game-title">Trò Chơi 2048</h1>
+        <div class="button-container">
+            <button id="playGame" class="menu-button">Chơi Game</button>
+            <button id="rank" class="menu-button">Xếp Hạng</button>
+        </div>
+    </div>
+
+    <div class="game-container" style="display: none;">
+        <div id="score">Điểm: 0</div>
+        <div id="board"></div>
+        <button id="newGame">Trò Chơi Mới</button>
+        <button id="backToMenu" class="menu-button">Quay Lại</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#playGame').click(function() {
+                $('.menu-screen').hide();
+                $('.game-container').show();
+                // Khởi tạo trò chơi
+            });
+
+            $('#quit').click(function() {
+                window.close(); // Đóng cửa sổ hoặc quay lại menu chính
+            });
+
+            $('#backToMenu').click(function() {
+                $('.game-container').hide();
+                $('.menu-screen').show();
+                // Reset game state if necessary
+            });
+        });
+    </script>
+</body>
+</html>

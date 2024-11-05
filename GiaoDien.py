@@ -4,7 +4,7 @@ from Define import *
 
 def initWindown():
     menuScreen = pygame.display.set_mode((WIDTH, HEIGHT))
-    icon = pygame.image.load('assets/images/icon.png')
+    icon = pygame.image.load('static/assets/images/icon.png')
     pygame.display.set_icon(icon)
     pygame.display.set_caption('2048')
     menuScreen.fill(BG_SCREEN)
@@ -13,10 +13,10 @@ def initWindown():
 
 def setMenuScreen(menuScreen):
     menuScreen.fill(BG_SCREEN)
-    game = pygame.image.load('assets/images/gameled.png')
+    game = pygame.image.load('static/assets/images/gameled.png')
     menuScreen.blit(game, (120, 0))
 
-    bg = pygame.image.load('assets/images/logo.png')
+    bg = pygame.image.load('static/assets/images/logo.png')
     menuScreen.blit(bg, (120, 100))
 
     pygame.draw.rect(menuScreen, BG_BLOCK, (WIDTH / 2 - 125, 300, 250, 50), border_radius=8)
@@ -32,11 +32,11 @@ def setMenuScreen(menuScreen):
 def thanhcongcu(menuScreen: pygame.Surface):
     pygame.draw.rect(menuScreen, BG_SCREEN, (0, 0, 530, 60), border_radius=8)
     pygame.draw.rect(menuScreen, BG_BLOCK, (20, 10, 40, 40), border_radius=8)
-    home = pygame.image.load('assets/images/home.png')
+    home = pygame.image.load('static/assets/images/home.png')
     menuScreen.blit(home, (22, 12))
 
     pygame.draw.rect(menuScreen, BG_BLOCK, (70, 10, 40, 40), border_radius=8)
-    home = pygame.image.load('assets/images/reset.png')
+    home = pygame.image.load('static/assets/images/reset.png')
     menuScreen.blit(home, (69, 10))
 
     # khung in điểm hiện tại
@@ -61,7 +61,7 @@ def background(menuScreen: pygame.Surface) -> None:
 
 
 def drawText(menuScreen: pygame.Surface, rect: pygame.Rect, val):
-    font = pygame.font.Font('assets/fonts/ClearSans-Bold.ttf', FRONT_SIZE[val])
+    font = pygame.font.Font('static/assets/fonts/ClearSans-Bold.ttf', FRONT_SIZE[val])
     text = font.render(str(val), True, (250, 250, 245))
     if val >= 2048:
         text = font.render(str(val), True, (255, 120, 20))
@@ -88,7 +88,7 @@ def drawmh(menuScreen: pygame.Surface, ds):
 def drawgameover(menuScreen: pygame.Surface):
     menuScreen1 = menuScreen.convert_alpha()
     menuScreen1.fill((255, 160, 122, 150))
-    font = pygame.font.Font('assets/fonts/ClearSans-Bold.ttf', 45)
+    font = pygame.font.Font('static/assets/fonts/ClearSans-Bold.ttf', 45)
     text = font.render('Game Over', True, (0, 0, 10))
     menuScreen1.blit(text, (140, 220))
     menuScreen.blit(menuScreen1, (0, 60))
@@ -97,7 +97,7 @@ def drawgameover(menuScreen: pygame.Surface):
 def draw_win(menuScreen: pygame.Surface):
     menuScreen1 = menuScreen.convert_alpha()
     menuScreen1.fill((255, 160, 122, 150))
-    font = pygame.font.Font('assets/fonts/ClearSans-Bold.ttf', 50)
+    font = pygame.font.Font('static/assets/fonts/ClearSans-Bold.ttf', 50)
     text = font.render('You Win', True, (0, 0, 10))
     menuScreen1.blit(text, (170, 220))
     menuScreen.blit(menuScreen1, (0, 60))
@@ -109,11 +109,11 @@ def bangxephang(menuScreen: pygame.Surface, ) -> None:
     menuScreen.fill((20, 20, 40))
     pygame.draw.rect(menuScreen, (102, 205, 170), (100, 60, 330, 460))
     pygame.draw.rect(menuScreen, (176, 224, 230), (180, 30, 170, 50), border_radius=8)
-    game = pygame.image.load('assets/images/topbxh.png')
+    game = pygame.image.load('static/assets/images/topbxh.png')
     menuScreen.blit(game, (200, 30))
 
     pygame.draw.rect(menuScreen, BG_BLOCK, (20, 10, 40, 40), border_radius=8)
-    home = pygame.image.load('assets/images/home.png')
+    home = pygame.image.load('static/assets/images/home.png')
     menuScreen.blit(home, (22, 12))
 
     file = open('BXH.txt')
@@ -126,13 +126,13 @@ def bangxephang(menuScreen: pygame.Surface, ) -> None:
             menuScreen.blit(text, (250, 93 + 43 * i))
 
             if i == 0:
-                top1 = pygame.image.load('assets/images/top1.png')
+                top1 = pygame.image.load('static/assets/images/top1.png')
                 menuScreen.blit(top1, (135, 86 + 43 * i))
             elif i == 1:
-                top2 = pygame.image.load('assets/images/top2.png')
+                top2 = pygame.image.load('static/assets/images/top2.png')
                 menuScreen.blit(top2, (140, 90 + 43 * i))
             else:
-                top3 = pygame.image.load('assets/images/top3.png')
+                top3 = pygame.image.load('static/assets/images/top3.png')
                 menuScreen.blit(top3, (145, 93 + 43 * i))
         else:
             pygame.draw.rect(menuScreen, (240, 248, 255), (145, 90 + 43 * i, 240, 38), border_radius=10)
@@ -161,11 +161,11 @@ def drawquit(menuScreen: pygame.Surface) -> None:
 
 def drawsound(menuScreen: pygame.Surface) -> None:
     pygame.draw.rect(menuScreen, BG_BLOCK, (14, 15, 40, 40), border_radius=8)
-    home = pygame.image.load('assets/images/unmute.png')
+    home = pygame.image.load('static/assets/images/unmute.png')
     menuScreen.blit(home, (18, 20))
 
 
 def drawmute(menuScreen: pygame.Surface) -> None:
     pygame.draw.rect(menuScreen, BG_BLOCK, (14, 15, 40, 40), border_radius=8)
-    home = pygame.image.load('assets/images/mute.png')
+    home = pygame.image.load('static/assets/images/mute.png')
     menuScreen.blit(home, (18, 20))

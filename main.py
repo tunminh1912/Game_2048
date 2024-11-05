@@ -273,9 +273,9 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
 
     audio = pygame.mixer.Sound
-    musicHome = audio('assets/music/SoundTheme.mp3')
-    musicGameOver = audio('./assets/music/MusicGameOver.mp3')
-    musicWin = audio('./assets/music/MusicWin.mp3')
+    musicHome = audio('static/assets/music/SoundTheme.mp3')
+    musicGameOver = audio('static/assets/music/MusicGameOver.mp3')
+    musicWin = audio('static/assets/music/MusicWin.mp3')
     isplaymusic = True;
     musicHome.play(10)
 

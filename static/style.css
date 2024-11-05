@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(132, 178, 200);
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+
+.tile {
+    width: 100px;
+    height: 100px;
+    background-color:rgb(175, 238, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #776e65;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Màu sắc cho các ô */
+.tile-2 { background-color: rgb(102, 205, 245); }  /* (102, 205, 245) */
+.tile-4 { background-color: rgb(0, 191, 255); }    /* (0, 191, 255) */
+.tile-8 { background-color: rgb(102, 144, 255); }  /* (102, 144, 255) */
+.tile-16 { background-color: rgb(65, 105, 225); }  /* (65, 105, 225) */
+.tile-32 { background-color: rgb(225, 182, 213); }  /* (225, 182, 213) */
+.tile-64 { background-color: rgb(255, 162, 173); }  /* (255, 162, 173) */
+.tile-128 { background-color: rgb(255, 150, 132); } /* (255, 150, 132) */
+.tile-256 { background-color: rgb(255, 128, 128); } /* (255, 128, 128) */
+.tile-512 { background-color: rgb(255, 112, 147); } /* (255, 112, 147) */
+.tile-1024 { background-color: rgb(255, 105, 180); } /* (255, 105, 180) */
+.tile-2048 { background-color: rgb(255, 255, 0); }  /* (255, 255, 0) */
+.tile-4096 { background-color: rgb(255, 215, 0); }  /* (255, 215, 0) */
+
+.tile:hover {
+    transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
