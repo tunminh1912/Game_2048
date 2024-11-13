@@ -266,6 +266,8 @@ if __name__ == '__main__':
     pygame.init()
 
     menuScreen = initWindown()
+    username = input_username(menuScreen)  # Yêu cầu người dùng nhập tên
+
     setMenuScreen(menuScreen)
     drawsound(menuScreen)
 
@@ -376,6 +378,10 @@ if __name__ == '__main__':
                     game_over = True
                     drawgameover(menuScreen)
                     updateBXH(souce)
+
+            if game_over or win:
+                save_score(username, souce)  # Lưu điểm với tên người dùng
+                running = False
 
             else:
                 continue

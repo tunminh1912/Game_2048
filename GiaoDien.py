@@ -1,5 +1,6 @@
 import pygame
 from Define import *
+import mysql.connector
 
 
 def initWindown():
@@ -104,8 +105,17 @@ def draw_win(menuScreen: pygame.Surface):
     pygame.display.update()
     pygame.time.delay(2000)
 
+def fetch_top_scores():
+    db = connect_to_mysql()
+    cursor = db.cursor()
+    cursor.execute("SELECT username, score FROM bxh ORDER BY score DESC LIMIT 10")
+    scores = cursor.fetchall()
+    cursor.close()
+    db.close()
+    return scores
 
-def bangxephang(menuScreen: pygame.Surface, ) -> None:
+
+def bangxephang(menuScreen: pygame.Surface) -> None:
     menuScreen.fill((20, 20, 40))
     pygame.draw.rect(menuScreen, (102, 205, 170), (100, 60, 330, 460))
     pygame.draw.rect(menuScreen, (176, 224, 230), (180, 30, 170, 50), border_radius=8)
@@ -116,15 +126,13 @@ def bangxephang(menuScreen: pygame.Surface, ) -> None:
     home = pygame.image.load('static/assets/images/home.png')
     menuScreen.blit(home, (22, 12))
 
-    file = open('BXH.txt')
-    list = file.readlines()
-    for i in range(len(list)):
+    scores = fetch_top_scores()  # Lấy dữ liệu từ MySQL
+    font = pygame.font.SysFont('Bahnschrift', 20)
+    for i, (username, score) in enumerate(scores):
         if i < 3:
             pygame.draw.rect(menuScreen, COLORBXH[i], (145, 90 + 43 * i, 240, 38), border_radius=10)
-            font = pygame.font.SysFont('Bahnschrift', 20)
-            text = font.render(list[i].rstrip(), True, (0, 0, 0))
+            text = font.render(f"{username}: {score}", True, (0, 0, 0))
             menuScreen.blit(text, (250, 93 + 43 * i))
-
             if i == 0:
                 top1 = pygame.image.load('static/assets/images/top1.png')
                 menuScreen.blit(top1, (135, 86 + 43 * i))
@@ -136,8 +144,7 @@ def bangxephang(menuScreen: pygame.Surface, ) -> None:
                 menuScreen.blit(top3, (145, 93 + 43 * i))
         else:
             pygame.draw.rect(menuScreen, (240, 248, 255), (145, 90 + 43 * i, 240, 38), border_radius=10)
-            font = pygame.font.SysFont('Bahnschrift', 20)
-            text = font.render(list[i].rstrip(), True, (0, 0, 0))
+            text = font.render(f"{username}: {score}", True, (0, 0, 0))
             menuScreen.blit(text, (250, 93 + 43 * i))
 
 
@@ -169,3 +176,56 @@ def drawmute(menuScreen: pygame.Surface) -> None:
     pygame.draw.rect(menuScreen, BG_BLOCK, (14, 15, 40, 40), border_radius=8)
     home = pygame.image.load('static/assets/images/mute.png')
     menuScreen.blit(home, (18, 20))
+
+
+def connect_to_mysql():
+    # Thay thông tin kết nối cho phù hợp với MySQL của bạn
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="2048"
+    )
+
+def save_score(username, score):
+    db = connect_to_mysql()
+    cursor = db.cursor()
+    sql = "INSERT INTO bxh (username, score) VALUES (%s, %s)"
+    val = (username, score)
+    cursor.execute(sql, val)
+    db.commit()
+    cursor.close()
+    db.close()
+
+
+def input_username(menuScreen: pygame.Surface):
+    # Tạo cửa sổ nhập tên người dùng
+    username = ""
+    input_active = True
+    font = pygame.font.Font(None, 36)
+    while input_active:
+        menuScreen.fill(BG_SCREEN)  # Xóa màn hình
+
+        # Hiển thị hộp nhập liệu và văn bản
+        pygame.draw.rect(menuScreen, (255, 255, 255), (100, 100, 200, 50))
+        text = font.render("Nhập tên người dùng:", True, (255, 255, 255))
+        menuScreen.blit(text, (100, 50))
+        username_text = font.render(username, True, (0, 0, 0))
+        menuScreen.blit(username_text, (105, 110))
+
+        pygame.display.flip()
+
+        # Lắng nghe các sự kiện
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    input_active = False
+                elif event.key == pygame.K_BACKSPACE:
+                    username = username[:-1]
+                else:
+                    username += event.unicode
+
+    return username
